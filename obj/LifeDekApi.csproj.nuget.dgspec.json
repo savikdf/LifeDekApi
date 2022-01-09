@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\savik\\OneDrive\\Desktop\\Github\\LifeDekApi\\LifeDekApi.csproj": {}
+    "D:\\Projects\\LifeDekApi\\LifeDekApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\savik\\OneDrive\\Desktop\\Github\\LifeDekApi\\LifeDekApi.csproj": {
+    "D:\\Projects\\LifeDekApi\\LifeDekApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\savik\\OneDrive\\Desktop\\Github\\LifeDekApi\\LifeDekApi.csproj",
+        "projectUniqueName": "D:\\Projects\\LifeDekApi\\LifeDekApi.csproj",
         "projectName": "LifeDekApi",
-        "projectPath": "C:\\Users\\savik\\OneDrive\\Desktop\\Github\\LifeDekApi\\LifeDekApi.csproj",
+        "projectPath": "D:\\Projects\\LifeDekApi\\LifeDekApi.csproj",
         "packagesPath": "C:\\Users\\savik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\savik\\OneDrive\\Desktop\\Github\\LifeDekApi\\obj\\",
+        "outputPath": "D:\\Projects\\LifeDekApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\savik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

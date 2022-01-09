@@ -1,10 +1,13 @@
-using  LifeDekApi.Models;
+using LifeDekApi.Dtos;
 
 namespace LifeDekApi.Services.Interfaces
 {
     public interface ICardService
     {
-         Card GetCard(Guid id);
-         IEnumerable<Card> GetCards();
+        CardDto GetCard(Guid id);
+        IEnumerable<CardDto> GetCards();
+        CardDto CreateCard(CardDto card);
+        CardDto UpdateCard(CardDto request);
+        CardDto DeleteCard(Guid id);
     }
 }

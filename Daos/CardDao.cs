@@ -1,5 +1,5 @@
 using LifeDekApi.Daos.Interfaces;
-using LifeDekApi.Models;
+using LifeDekApi.Entities;
 
 namespace LifeDekApi.Daos
 {
@@ -19,14 +19,68 @@ namespace LifeDekApi.Daos
             }
         };
 
-        public Card GetCard(Guid id)
-        {
-            return cards.Where(c => c.Id == id).SingleOrDefault();
-        }
+        #region Get
 
         public IEnumerable<Card> GetCards()
         {
             return cards;
         }
+
+        public Card GetCard(Guid id)
+        {
+            return cards.Where(c => c.Id == id).SingleOrDefault();
+        }
+
+        #endregion
+
+        #region Create
+
+        public Card CreateCard(Card request)
+        {
+            if (request.Id == null) { 
+                request.Id = new Guid(); 
+            }
+            cards.Add(request);
+
+            return request;
+        }
+
+        #endregion
+
+        #region Update
+
+        public Card UpdateCard(Card request)
+        {
+            Card cardToUpdate = cards.SingleOrDefault(c => c.Id == request.Id);
+            if(cardToUpdate == null)
+            {
+                return null;
+            }
+
+            cardToUpdate.Name = request.Name;
+            cardToUpdate.Description = request.Description;
+
+            return cardToUpdate;
+        }
+
+        #endregion
+
+        #region Delete
+
+        public Card DeleteCard(Guid id)
+        {
+            Card cardToDelete = cards.SingleOrDefault(c => c.Id == id);
+            if(cardToDelete == null){ 
+                return null; 
+            }            
+            cards.Remove(cardToDelete);
+            return cardToDelete;
+        }
+
+        #endregion
+
+
+
+
     }
 }
