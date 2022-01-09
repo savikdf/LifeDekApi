@@ -11,12 +11,17 @@ public class CardController : ControllerBase
 {
     private readonly ICardService cardService;
 
-    public CardController() : this(new CardService()) { }
-
-    public CardController(ICardService cardService)
+    public CardController()
     {
-        this.cardService = cardService;
+        cardService = new CardService();   
     }
+
+    //public CardController() : this(new CardService()) { }
+
+    //public CardController(ICardService cardService)
+    //{
+    //    this.cardService = cardService;
+    //}
 
     //GET /cards/{id}
     [HttpGet("{id}")]
