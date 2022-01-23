@@ -1,13 +1,12 @@
-using LifeDekApi.Entities;
+using LifeDekApi.Models;
 
-namespace LifeDekApi.Daos.Interfaces
+namespace LifeDekApi.Daos.Interfaces;
+
+public interface ICardDao
 {
-    public interface ICardDao
-    {
-        IEnumerable<Card> GetCards();
-        Card GetCard(Guid id);
-        Card CreateCard(Card request);
-        Card UpdateCard(Card request);
-        Card DeleteCard(Guid id);
-    }
+    IEnumerable<Card> GetCards(Guid userId);
+    Card GetCard(Guid id);
+    Card CreateCard(Card request);
+    Card UpdateCard(Card request);
+    Card DeleteCard(Guid id);
 }

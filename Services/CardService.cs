@@ -1,54 +1,48 @@
 using LifeDekApi.Daos.Interfaces;
 using LifeDekApi.Daos;
-using LifeDekApi.Entities;
+using LifeDekApi.Models;
 using LifeDekApi.Dtos;
 using LifeDekApi.Services.Interfaces;
-using LifeDekApi.Extensions;
 
-namespace LifeDekApi.Services
+namespace LifeDekApi.Services;
+
+public class CardService : ICardService
 {
-    public class CardService : ICardService
+    private readonly ICardDao cardDao;
+
+    public CardService() : this(new CardDao()) { }
+    public CardService(ICardDao cardDao)
     {
-        #region ctor
-        private readonly ICardDao cardDao;
+        this.cardDao = cardDao;
+    }
 
-        public CardService() : this(new CardDao()) { }
-        public CardService(ICardDao cardDao)
-        {
-            this.cardDao = cardDao;
-        }
+    public CardDto CreateCard(CardDto request)
+    {
+        Card model = (Card)request;
+        return (CardDto)cardDao.CreateCard(model);
+    }
 
-        public CardDto CreateCard(CardDto card)
-        {
-            Card cardEntity = card.ToCardEntity();
-            return cardDao.CreateCard(cardEntity).ToCardDto();
-        }
+    public CardDto DeleteCard(Guid id)
+    {
+        Card model = cardDao.DeleteCard(id);
+        return (CardDto)model;
+    }
 
-        public CardDto DeleteCard(Guid id)
-        {
-            Card cardEntity = cardDao.DeleteCard(id);
-            return cardEntity.ToCardDto();
-        }
+    public CardDto GetCard(Guid id)
+    {
+        Card model = cardDao.GetCard(id);
+        return (CardDto)model;
+    }
 
-        public CardDto GetCard(Guid id)
-        {
-            Card cardEntity = cardDao.GetCard(id);
-            return cardEntity.ToCardDto();
-        }
+    public IEnumerable<CardDto> GetCards(Guid userId)
+    {
+        IEnumerable<Card> models = cardDao.GetCards(userId);
+        return models.Select(c => (CardDto)c);
+    }
 
-        public IEnumerable<CardDto> GetCards()
-        {
-            IEnumerable<Card> cardEntities = cardDao.GetCards();
-            return cardEntities.Select(c => c.ToCardDto());
-        }
-
-        public CardDto UpdateCard(CardDto request)
-        {
-            Card cardEntity = request.ToCardEntity();
-            return cardDao.UpdateCard(cardEntity).ToCardDto();
-        }
-
-        #endregion
-
+    public CardDto UpdateCard(CardDto request)
+    {
+        Card model = (Card)request;
+        return (CardDto)cardDao.UpdateCard(model);
     }
 }

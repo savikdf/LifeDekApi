@@ -3,15 +3,15 @@ using LifeDekApi.Models;
 
 namespace LifeDekApi.Daos;
 
-public class CardDao : ICardDao
+public class UserDao : IUserDao
 {
     //temp in memory repo
     private List<Card> cards = new List<Card>();
 
     private ILifeDekDbContext context;
 
-    public CardDao() : this(new LifeDekDbContext()) { }
-    public CardDao(ILifeDekDbContext context)
+    public UserDao() : this(new LifeDekDbContext()) { }
+    public UserDao(ILifeDekDbContext context)
     {
         this.context = context;
         for (int i = 0; i < 10; i++)
@@ -25,24 +25,15 @@ public class CardDao : ICardDao
         }
     }
 
-    public IEnumerable<Card> GetCards(Guid userId)
+
+    public User GetUser(Guid id)
     {
-        return context.Cards.Where(c => c.UserId == userId);
+        return context.Users.SingleOrDefault(u => u.Guid == id);
     }
 
-    public Card GetCard(Guid id)
+    public User CreateUser(User request)
     {
-        return context.Cards.SingleOrDefault(c => c.Guid == id);
-    }
-
-    public Card CreateCard(Card request)
-    {
-        if (request.Guid == null)
-        {
-            request.Guid = new Guid();
-        }
-
-        context.Cards.Add(request);
+        context.Users.Add(request);
 
         if (context.SaveChanges() == 0)
         {
@@ -52,39 +43,38 @@ public class CardDao : ICardDao
         return request;
     }
 
-    public Card UpdateCard(Card request)
+    public User UpdateUser(User request)
     {
-        Card cardToUpdate = GetCard(request.Guid);
-        if (cardToUpdate == null)
+        User userToUpdate = GetUser(request.Guid);
+        if (userToUpdate == null)
         {
             return null;
         }
 
-        cardToUpdate.Name = request.Name;
-        cardToUpdate.Description = request.Description;
+        userToUpdate.FirstName = request.FirstName;
+        userToUpdate.LastName = request.LastName;
 
         if (context.SaveChanges() == 0)
         {
             throw new Microsoft.EntityFrameworkCore.DbUpdateException();
         }
 
-        return cardToUpdate;
+        return userToUpdate;
     }
 
-    public Card DeleteCard(Guid id)
+    public User DeleteUser(Guid id)
     {
-        Card cardToDelete = GetCard(id);
-        if (cardToDelete == null)
+        User userToDelete = GetUser(id);
+        if (userToDelete == null)
         {
             return null;
         }
-        context.Cards.Remove(cardToDelete);
+        context.Users.Remove(userToDelete);
 
         if (context.SaveChanges() == 0)
         {
             throw new Microsoft.EntityFrameworkCore.DbUpdateException();
         }
-        return cardToDelete;
+        return userToDelete;
     }
-
 }

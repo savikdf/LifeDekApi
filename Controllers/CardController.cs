@@ -1,7 +1,8 @@
-using LifeDekApi.Services.Interfaces;
-using LifeDekApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using LifeDekApi.Services.Interfaces;
 using LifeDekApi.Services;
+//Only DTOs exposed on this level
+using LifeDekApi.Dtos; 
 
 namespace LifeDekApi.Controllers;
 
@@ -15,13 +16,6 @@ public class CardController : ControllerBase
     {
         cardService = new CardService();   
     }
-
-    //public CardController() : this(new CardService()) { }
-
-    //public CardController(ICardService cardService)
-    //{
-    //    this.cardService = cardService;
-    //}
 
     //GET /cards/{id}
     [HttpGet("{id}")]
@@ -44,12 +38,12 @@ public class CardController : ControllerBase
     }
 
     //GET /cards
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<CardDto>>> GetCards()
+    [HttpGet("{userId}")]
+    public async Task<ActionResult<IEnumerable<CardDto>>> GetCards(Guid userId)
     {
         try
         {
-            IEnumerable<CardDto> cards = cardService.GetCards();
+            IEnumerable<CardDto> cards = cardService.GetCards(userId);
             if (cards is null)
             {
                 return NotFound();
